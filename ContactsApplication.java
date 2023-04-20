@@ -3,8 +3,6 @@ package sh.harold.contactsapp;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -15,7 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ContactsApplication extends Application {
 
@@ -166,7 +167,7 @@ public class ContactsApplication extends Application {
     private void saveDataToFile() {
         try {
             /* declare FileWriter object. Used to write data to a file called "contacts.csv".*/
-            FileWriter writer = new FileWriter(new File("contacts.csv"));
+            FileWriter writer = new FileWriter("contacts.csv");
 
             /* *e n h a n c e d* for loop that will iterate over each Contact object in data (ArrayList). */
             for (Contact contact : data)
