@@ -27,25 +27,25 @@ public class ContactsApplication extends Application {
         primaryStage.setTitle("Contacts App");
 
         /* Create Table View */
-        table = new TableView<Contact>();
+        table = new TableView<>();
         data = FXCollections.observableArrayList();
         table.setItems(data);
 
         /* Define the table columns */
-        TableColumn<Contact, String> firstNameCol = new TableColumn<Contact, String>("First Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
-        TableColumn<Contact, String> lastNameCol = new TableColumn<Contact, String>("Last Name");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("lastName"));
-        TableColumn<Contact, String> emailCol = new TableColumn<Contact, String>("Email");
-        emailCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("email"));
-        TableColumn<Contact, String> phoneCol = new TableColumn<Contact, String>("Phone");
-        phoneCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
-        TableColumn<Contact, String> addressCol = new TableColumn<Contact, String>("Address");
-        addressCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("address"));
-        TableColumn<Contact, String> cityCol = new TableColumn<Contact, String>("City");
-        cityCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("city"));
-        TableColumn<Contact, String> provinceCol = new TableColumn<Contact, String>("Province");
-        provinceCol.setCellValueFactory(new PropertyValueFactory<Contact, String>("province"));
+        TableColumn<Contact, String> firstNameCol = new TableColumn<>("First Name");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        TableColumn<Contact, String> lastNameCol = new TableColumn<>("Last Name");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        TableColumn<Contact, String> emailCol = new TableColumn<>("Email");
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumn<Contact, String> phoneCol = new TableColumn<>("Phone");
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        TableColumn<Contact, String> addressCol = new TableColumn<>("Address");
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        TableColumn<Contact, String> cityCol = new TableColumn<>("City");
+        cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
+        TableColumn<Contact, String> provinceCol = new TableColumn<>("Province");
+        provinceCol.setCellValueFactory(new PropertyValueFactory<>("province"));
 
         table.getColumns().addAll(firstNameCol, lastNameCol, emailCol, phoneCol, addressCol, cityCol, provinceCol);
 
@@ -73,35 +73,32 @@ public class ContactsApplication extends Application {
         // new button with text "Add"
         Button addButton = new Button("Add");
         // event handler for the button
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String email = emailField.getText();
-                String phone = phoneField.getText();
-                String address = addressField.getText();
-                String city = cityField.getText();
-                String province = provinceField.getText();
+        addButton.setOnAction(e -> {
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String email = emailField.getText();
+            String phone = phoneField.getText();
+            String address = addressField.getText();
+            String city = cityField.getText();
+            String province = provinceField.getText();
 
 
-                // Check if all fields are not empty
-                if (!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !address.isEmpty() && !city.isEmpty() && !province.isEmpty()) {
-                    // Create a new Contact object with the retrieved field values
-                    Contact newContact = new Contact(firstName, lastName, email, phone, address, city, province);
-                    // Add the new Contact to the data list
-                    data.add(newContact);
-                    // Clear the text fields for first name, last name, email, phone, address, city, and province
-                    firstNameField.setText("");
-                    lastNameField.setText("");
-                    emailField.setText("");
-                    phoneField.setText("");
-                    addressField.setText("");
-                    cityField.setText("");
-                    provinceField.setText("");
-                    // Save the data to a file
-                    saveDataToFile();
-                }
+            // Check if all fields are not empty
+            if (!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !address.isEmpty() && !city.isEmpty() && !province.isEmpty()) {
+                // Create a new Contact object with the retrieved field values
+                Contact newContact = new Contact(firstName, lastName, email, phone, address, city, province);
+                // Add the new Contact to the data list
+                data.add(newContact);
+                // Clear the text fields for first name, last name, email, phone, address, city, and province
+                firstNameField.setText("");
+                lastNameField.setText("");
+                emailField.setText("");
+                phoneField.setText("");
+                addressField.setText("");
+                cityField.setText("");
+                provinceField.setText("");
+                // Save the data to a file
+                saveDataToFile();
             }
         });
 
@@ -110,14 +107,11 @@ public class ContactsApplication extends Application {
 
         // Add delete button
         Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                Contact selectedContact = table.getSelectionModel().getSelectedItem();
-                if (selectedContact != null) {
-                    data.remove(selectedContact);
-                    saveDataToFile();
-                }
+        deleteButton.setOnAction(e -> {
+            Contact selectedContact = table.getSelectionModel().getSelectedItem();
+            if (selectedContact != null) {
+                data.remove(selectedContact);
+                saveDataToFile();
             }
         });
 
@@ -134,8 +128,8 @@ public class ContactsApplication extends Application {
         // Error handling is very pog
         try {
              /* BufferedReader initalized with a FileReader.
-              * "File" object passed represents the file to be read. */
-            BufferedReader reader = new BufferedReader(new FileReader(new File("contacts.csv")));
+              * filename object passed represents the file to be read. */
+            BufferedReader reader = new BufferedReader(new FileReader("contacts.csv"));
 
             /* The "line" declared to store each line of data read from the file.*/
             String line;
